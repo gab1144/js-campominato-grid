@@ -1,4 +1,5 @@
 const container = document.querySelector('.container');
+let elementsPerRow;
 
 document.getElementById('play').addEventListener('click', function(){
   init();
@@ -6,7 +7,8 @@ document.getElementById('play').addEventListener('click', function(){
 
 function init(){
   container.innerHTML ='';
-  for (let i = 1; i <= 100; i++){
+  elementsPerRow = parseInt(document.getElementById('level').value);
+  for (let i = 1; i <= Math.pow(elementsPerRow, 2); i++){
     createSquare(i);
   }
   container.style.border = "1px solid black";
@@ -20,6 +22,12 @@ function createSquare(id){
   square.innerText = id;
   container.append(square);
   square.addEventListener('click', clickSquare)
+  square.style.width = generateCalcCss();
+  square.style.height = generateCalcCss();
+}
+
+function generateCalcCss(){
+  return `calc(100% / ${elementsPerRow})`;
 }
 
 function clickSquare(event){
